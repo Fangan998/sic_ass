@@ -1,2 +1,4 @@
-# sic_ass
-yup,this is sic a
+# SIC-ASSEMTBLER BY PYTHON
+
+yup,this is sic assemtbler<br>
+by python 3.9+
