@@ -1,12 +1,11 @@
 def _hex_(add):
     a = hex(int(add,16))
-    
     return a
 
 def __w_obj__(i,codenum):
     opd = i
     codenum = codenum
-    w_string = f"{i}\t{codenum}\n"
+    w_string = f"{i}\t\t\t{codenum}\n"
     objpgm.write(w_string) 
 
 from pass_one import optab,LOCCTR,start,sym
@@ -22,16 +21,24 @@ tempstr1 = ""
 tempstr = ""
 operand={}
 objpgm.write("sic ass\n")
+
 for i in inter.readlines():
-    j = i.strip()
-    ls = i.strip().split()
+
+    j = i.strip()   #recording i
+    ls = i.strip(" ,").split()  #strip and split i to ls
+
     print(f"ls:{ls}")
+
     add = ls[0][2:]
+
     if add !='-':
         addrlist.append(add)
+    
     label=ls[1]
     opcode = ls[2]
+
     if len(ls) == 4:
+        
         operand = ls[3]
 
     if (ls[2]== "START" ):
@@ -40,18 +47,32 @@ for i in inter.readlines():
     elif (ls[2]=='END'):
         tempstr = i
         print (tempstr)
+
     else:
+        print(f"SYM:{operand}")
+        print(operand.find("BUFFER"))
+        c=""
         if ls[2] in optab.keys():
             op = optab[ls[2]]
             if ls[2]=='RSUB':
                 op += "0000"
                 tempstr1 = op
                 print(f"RSUB:{i.strip()} \t{op}")
+           
+            elif  operand.find("BUFFER,") ==0:
+                    b = op 
+                    a = sym.get("BUFFER")[2:]
+                    d = str(int(a)+8000)
+                    c = op+d
+                    print(f"buffer x ={c}")
+                    tempstr1 = c
+    
             elif operand in sym.keys():
-                op += sym[operand][2:]
-                l.append(op)
-                tempstr1 = op
-                print(f"IN_SYM_KEY:{i.strip()} \t {op}")
+                
+                    op += sym[operand][2:]
+                    l.append(op)
+                    tempstr1 = op
+                    print(f"IN_SYM_KEY:{i.strip()} \t {op}")
 
             __w_obj__(j.strip(),tempstr1)
 
@@ -75,12 +96,12 @@ for i in inter.readlines():
         elif ls[2]=="BYTE":
 
             temp =operand[2:len(operand)-1]
-            if operand.find("C"):
+            if operand.find("X")==0:
                 l.append(temp)
                 tempstr1 = temp
                 print(f"X:{i.strip()}\t{temp}")
                 
-            elif operand.find("X"):
+            elif operand.find("C")==0:
                 str1 = ""
                 print("C_temp:",temp)
                 for i in temp:

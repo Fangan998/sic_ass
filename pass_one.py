@@ -32,18 +32,25 @@ for i in open_file.readlines(): #loop detction and write to int...te.txt & sym..
         if n[0] != "-":
                 symtab.write(n[0]+" "+hex(int(LOCCTR,16))+"\n")
                 sym[n[0]]=str(hex(int(LOCCTR,16)))
+
         if n[1] in optab.keys() or n[1]=="WORD":
             LOCCTR = str(hex(int(LOCCTR,16)+(3)))
+
         elif n[1] == "RESW":
             temp = int(n[2],16)
             LOCCTR = str(hex(int(LOCCTR,16)+(temp)*3))
+
         elif n[1] == "RESB":
             LOCCTR = str(hex(int(LOCCTR,16)+int(n[2])))
+
         elif n[1]=="BYTE":
+
             if n[2][0]=="X":
                 LOCCTR = str(hex(int(LOCCTR,16)+ int(int(len(n[2])-3)/2)))
+
             elif n[2][0] == "C":
                 LOCCTR = str(hex(int(LOCCTR,16) + int(len(n[2])-3)))
+                
 
 open_file.close()       #...{
 out.close()             #...    FINISH AND ALL CLOSE
