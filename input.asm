@@ -1,5 +1,5 @@
 	COPY    START   1000
-	FIRST   STL     RETADC
+	FIRST   STL     RETADR
 	CLOOP   JSUB    RDREC
 	-       LDA     LENGTH
 	-       COMP    ZERO
@@ -42,7 +42,7 @@
 	WRREC   LDX	ZERO
 	WLOOP   TD	OUTPUT
 	-       JEQ	WLOOP
-	-       LDCH	BUFFER,X
+	-       LDCH	BUFFER ,X
 	-       WD	OUTPUT
 	-       TIX	LENGTH
 	-       JLT	WLOOP
