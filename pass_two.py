@@ -59,17 +59,24 @@ for i in inter.readlines():
                 tempstr1 = op
                 print(f"RSUB:{i.strip()} \t{op}")
            
-            elif  operand.find("BUFFER,") ==0:
+            elif  operand.find("BUFFER,X") ==0:
                     b = op 
                     a = sym.get("BUFFER")[2:]
-                    d = str(int(a)+8000)
+                    d = str(int(a,16)+8000)
                     c = op+d
                     print(f"buffer x ={c}")
                     tempstr1 = c
     
             elif operand in sym.keys():
-                
-                    op += sym[operand][2:]
+                    a =sym[operand][2:]
+                    if len(a) < 4:
+                        if len(a)==3:
+                            a = "0"+str(a)
+                        else:
+                            a ="00"+str(a)
+                            
+                    op += a
+                        
                     l.append(op)
                     tempstr1 = op
                     print(f"IN_SYM_KEY:{i.strip()} \t {op}")
